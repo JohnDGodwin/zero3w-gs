@@ -1,0 +1,9 @@
+server {
+	listen 8080;
+	listen [::]:8080;
+
+	server_name x.x.x.x;
+
+	root /media;
+	autoindex on;
+}
