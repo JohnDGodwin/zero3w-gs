@@ -2,15 +2,6 @@
 
 #This script will setup a radxa zero 3w for OpenIPC
 
-#setting up a few things
-#step 1 - change passwd for root to root
-
-#step 2 - edit /etc/ssh/sshd_config to allow for root login via ssh
-
-#step 3 - sudo systemctl enable ssh
-sudo systemctl enable ssh
-
-
 #installing the base system
 
 #update and upgrade system
@@ -44,13 +35,10 @@ cd ..
 
 #edit /etc/wifibroadcast to region 00
 #
-cd wfbng
-sudo cp wifibroadcast /etc/
+sudo cp wfbng/wifibroadcast /etc/
 
 #transfer stock gs.key to /etc
-sudo cp gs.key /etc/
-
-cd ..
+sudo cp wfbng/gs.key /etc/
 
 
 #install PixelPilot
@@ -79,3 +67,22 @@ sudo cp init-nics.service /etc/systemd/system/
 sudo systemctl enable init-nics.service
 sudo cp 98-custom-wifi.rules /etc/udev/rules.d/
 cd ..
+
+#install the media server for dvr
+sudo apt install nginx-light
+
+sudo chmod o+x /media
+
+sudo mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.old
+sudo cp nginx/default /etc/nginx/sites-available/
+
+
+#setting up a the image
+#change passwd for root to root
+
+#edit /etc/ssh/sshd_config to allow for root login via ssh
+
+#sudo systemctl enable ssh
+sudo systemctl enable ssh
+
+#
