@@ -82,4 +82,6 @@ sudo cp nginx/default /etc/nginx/sites-available/
 #sudo systemctl enable ssh
 sudo systemctl enable ssh
 
-#
+#setup scripts folder
+sudo mkdir /config/scripts
+sudo cp scripts/* /config/scripts/
