@@ -34,7 +34,6 @@ cd ..
 
 
 #edit /etc/wifibroadcast to region 00
-#
 sudo cp wfbng/wifibroadcast /etc/
 
 #transfer stock gs.key to /etc
@@ -70,9 +69,7 @@ cd ..
 
 #install the media server for dvr
 sudo apt install nginx-light
-
 sudo chmod o+x /media
-
 sudo mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.old
 sudo cp nginx/default /etc/nginx/sites-available/
 
