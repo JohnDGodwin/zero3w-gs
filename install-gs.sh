@@ -4,9 +4,11 @@
 
 #setting up a few things
 #step 1 - change passwd for root to root
-#step 2 - edit /etc/ssh/sshd_config to allow for root login via ssh
-#step 3 - sudo systemctl enable ssh
 
+#step 2 - edit /etc/ssh/sshd_config to allow for root login via ssh
+
+#step 3 - sudo systemctl enable ssh
+sudo systemctl enable ssh
 
 
 #installing the base system
@@ -39,11 +41,16 @@ sudo systemctl enable wifibroadcast@gs
 
 cd ..
 
+
 #edit /etc/wifibroadcast to region 00
 #
+cd wfbng
+sudo cp wifibroadcast /etc/
 
 #transfer stock gs.key to /etc
-cd wfbng_scripts
+sudo cp gs.key /etc/
+
+cd ..
 
 
 #install PixelPilot
