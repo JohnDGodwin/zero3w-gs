@@ -40,7 +40,10 @@ sudo systemctl enable wifibroadcast@gs
 cd ..
 
 #edit /etc/wifibroadcast to region 00
+#
+
 #transfer stock gs.key to /etc
+cd wfbng_scripts
 
 
 #install PixelPilot
