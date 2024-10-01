@@ -19,6 +19,7 @@ cd ..
 #install EU driver
 git clone https://github.com/svpcom/rtl8812eu.git
 cd rtl8812eu
+git checkout b55c360c877ee34bbbc9d9c34ff8eef9cebcfbb3
 sudo ./dkms-install.sh
 cd ..
 
