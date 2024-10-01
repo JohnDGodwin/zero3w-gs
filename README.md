@@ -35,3 +35,4 @@ The script will do the following:
 * configure hotplugging of wfb-nics
 * install a media server for dvr
 * setup the /config directory where the user settings and scripts are stored
+* setup openipc systemd streaming service
