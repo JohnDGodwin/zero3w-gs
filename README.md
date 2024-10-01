@@ -21,6 +21,8 @@ Files and installation script for the Radxa Zero 3w to run as an openipc grounds
 
   Run the installation script.
 
+  `sudo chmod +x install-gs.sh`
+
   `sudo ./install-gs.sh`
 
 
