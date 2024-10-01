@@ -1,0 +1,14 @@
+[Unit]
+Description="OpenIPC Server"
+After=multi-user.target
+StartLimitIntervalSec=10
+StartLimitBurst=0
+
+[Service]
+Type=simple
+ExecStart=bash /home/radxa/scripts/stream.sh
+Restart=always
+RestartSec=3s
+
+[Install]
+WantedBy=multi-user.target
