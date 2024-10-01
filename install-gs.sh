@@ -34,7 +34,7 @@ cd ..
 
 
 #edit /etc/wifibroadcast to region 00
-sudo cp wfbng/wifibroadcast /etc/
+sudo cp wfbng/wifibroadcast.cfg /etc/
 
 #transfer stock gs.key to /etc
 sudo cp wfbng/gs.key /etc/
