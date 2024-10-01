@@ -85,3 +85,6 @@ sudo systemctl enable ssh
 #setup scripts folder
 sudo mkdir /config/scripts
 sudo cp scripts/* /config/scripts/
+
+#setup openipc systemd service
+sudo cp openipc/openipc.service /etc/systemd/system/
