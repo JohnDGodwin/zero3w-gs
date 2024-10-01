@@ -22,3 +22,16 @@ Files and installation script for the Radxa Zero 3w to run as an openipc grounds
   Run the installation script.
 
   `sudo ./install-gs.sh`
+
+
+***
+
+The script will do the following:
+
+* update, upgrade, and install some packages with apt
+* install AU and EU drivers
+* install wfb-ng
+* install PixelPilot
+* configure hotplugging of wfb-nics
+* install a media server for dvr
+* setup the /config directory where the user settings and scripts are stored
