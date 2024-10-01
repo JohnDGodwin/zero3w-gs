@@ -6,7 +6,7 @@ StartLimitBurst=0
 
 [Service]
 Type=simple
-ExecStart=bash /home/radxa/scripts/stream.sh
+ExecStart=bash /config/scripts/stream.sh
 Restart=always
 RestartSec=3s
 
