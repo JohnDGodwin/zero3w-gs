@@ -4,6 +4,22 @@
 
 #installing the base system
 
+#setting up a the image
+#change passwd for root to root
+
+#edit /etc/ssh/sshd_config to allow for root login via ssh
+
+#sudo systemctl enable ssh
+sudo systemctl enable ssh
+
+#setup scripts folder
+sudo mkdir /config/scripts
+sudo cp scripts/* /config/scripts/
+
+#setup openipc systemd service
+sudo cp openipc/openipc.service /etc/systemd/system/
+
+
 #update and upgrade system
 sudo apt update && sudo apt -y upgrade
 
@@ -74,18 +90,3 @@ sudo chmod o+x /media
 sudo mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.old
 sudo cp nginx/default /etc/nginx/sites-available/
 
-
-#setting up a the image
-#change passwd for root to root
-
-#edit /etc/ssh/sshd_config to allow for root login via ssh
-
-#sudo systemctl enable ssh
-sudo systemctl enable ssh
-
-#setup scripts folder
-sudo mkdir /config/scripts
-sudo cp scripts/* /config/scripts/
-
-#setup openipc systemd service
-sudo cp openipc/openipc.service /etc/systemd/system/
