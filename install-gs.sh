@@ -29,6 +29,13 @@ apt update && apt -y upgrade
 #install prerequisite programs
 apt install -y git cmake
 
+echo "installing media server for dvr"
+#install the media server for dvr
+apt -y install nginx-light
+chmod o+x /media
+mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.old
+cp /zero3w-gs/nginx/default /etc/nginx/sites-available/
+
 
 echo "Transferring drivers"
 #install AU driver
@@ -78,10 +85,3 @@ cp init-nics.service /etc/systemd/system/
 systemctl enable init-nics.service
 cp 98-custom-wifi.rules /etc/udev/rules.d/
 cd ..
-
-echo "installing media server for dvr"
-#install the media server for dvr
-apt -y install nginx-light
-chmod o+x /media
-mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.old
-cp /zero3w-gs/nginx/default /etc/nginx/sites-available/
