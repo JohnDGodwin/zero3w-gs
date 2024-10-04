@@ -73,7 +73,7 @@ sudo cp 98-custom-wifi.rules /etc/udev/rules.d/
 cd ..
 
 #install the media server for dvr
-sudo apt install nginx-light
+sudo apt -y install nginx-light
 sudo chmod o+x /media
 sudo mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.old
 sudo cp nginx/default /etc/nginx/sites-available/
