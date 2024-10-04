@@ -68,7 +68,7 @@ echo "installing PixelPilot"
 apt install librockchip-mpp-dev libdrm-dev libcairo-dev
 apt --no-install-recommends -y install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools
 
-clone https://github.com/OpenIPC/PixelPilot_rk.git
+git clone https://github.com/OpenIPC/PixelPilot_rk.git
 cd PixelPilot_rk
 cmake -B build
 cmake --build build --target install
