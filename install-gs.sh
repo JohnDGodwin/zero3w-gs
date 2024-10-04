@@ -21,7 +21,7 @@ cp openipc/openipc.service /etc/systemd/system/
 systemctl disable openipc.service
 
 #update and upgrade system
-apt update && sudo apt -y upgrade
+apt update && apt -y upgrade
 
 #install prerequisite programs
 apt install -y git cmake
