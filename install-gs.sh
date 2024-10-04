@@ -27,17 +27,10 @@ sudo apt update && sudo apt -y upgrade
 sudo apt install -y git cmake
 
 #install AU driver
-git clone https://github.com/svpcom/rtl8812au.git
-cd rtl8812au
-sudo ./dkms-install.sh
-cd ..
+sudo cp drivers/88XXau_wfb.ko /lib/modules/`uname -r`/kernel/drivers/net/wireless
 
 #install EU driver
-git clone https://github.com/svpcom/rtl8812eu.git
-cd rtl8812eu
-git checkout b55c360c877ee34bbbc9d9c34ff8eef9cebcfbb3
-sudo ./dkms-install.sh
-cd ..
+sudo cp drivers/8812eu.ko /lib/modules/`uname -r`/kernel/drivers/net/wireless
 
 #install wfb-ng
 git clone https://github.com/svpcom/wfb-ng.git
