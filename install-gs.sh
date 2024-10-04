@@ -27,10 +27,10 @@ sudo apt update && sudo apt -y upgrade
 sudo apt install -y git cmake
 
 #install AU driver
-sudo cp drivers/88XXau_wfb.ko /lib/modules/`uname -r`/kernel/drivers/net/wireless
+sudo cp drivers/88XXau_wfb.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/net/wireless
 
 #install EU driver
-sudo cp drivers/8812eu.ko /lib/modules/`uname -r`/kernel/drivers/net/wireless
+sudo cp drivers/8812eu.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/net/wireless
 
 #install wfb-ng
 git clone https://github.com/svpcom/wfb-ng.git
