@@ -78,7 +78,7 @@ cd ..
 echo "hotplugging of wfb-nics configuration"
 #configure hotplugging of wfb-nics
 git clone https://github.com/JohnDGodwin/hot-plug-wfb-nics.git
-cd /zero3w-gs/hot-plug-wfb-nics
+cd /zero3w-gs/hot-plug-wfb-nics/
 chmod +x autoload-wfb-nics.sh
 cp autoload-wfb-nics.sh /config/scripts/
 cp init-nics.service /etc/systemd/system/
