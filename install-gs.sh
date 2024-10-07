@@ -44,9 +44,6 @@ cp /zero3w-gs/drivers/88XXau_wfb.ko /lib/modules/5.10.160-38-rk356x/kernel/drive
 #install EU driver
 cp /zero3w-gs/drivers/8812eu.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/net/wireless/
 
-depmod -a
-modprobe 88XXau_wfb
-modprobe 8812eu
 
 echo "installing wfb-ng"
 #install wfb-ng
@@ -69,7 +66,7 @@ cp /zero3w-gs/wfbng/gs.key /etc/
 
 echo "installing PixelPilot"
 #install PixelPilot
-apt install librockchip-mpp-dev libdrm-dev libcairo-dev
+apt install librockchip-mpp-dev libdrm-dev libcairo-dev gstreamer1.0-rockchip1 librga-dev librga2 librockchip-mpp-dev librockchip-mpp1 librockchip-vpu0 libv4l-rkmpp libgl4es libgl4es-dev
 apt --no-install-recommends -y install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools
 
 git clone https://github.com/OpenIPC/PixelPilot_rk.git
