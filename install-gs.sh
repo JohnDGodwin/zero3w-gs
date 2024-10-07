@@ -44,6 +44,10 @@ cp /zero3w-gs/drivers/88XXau_wfb.ko /lib/modules/5.10.160-38-rk356x/kernel/drive
 #install EU driver
 cp /zero3w-gs/drivers/8812eu.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/net/wireless/
 
+depmod -a
+modprobe 88XXau_wfb
+modprobe 8812eu
+
 echo "installing wfb-ng"
 #install wfb-ng
 git clone https://github.com/svpcom/wfb-ng.git
