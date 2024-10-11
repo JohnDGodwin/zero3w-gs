@@ -44,6 +44,9 @@ cp /zero3w-gs/drivers/88XXau_wfb.ko /lib/modules/5.10.160-38-rk356x/kernel/drive
 #install EU driver
 cp /zero3w-gs/drivers/8812eu.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/net/wireless/
 
+#install 8733bu driver
+cp /zero3w-gs/drivers/8733bu.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/net/wireless/
+
 
 echo "installing wfb-ng"
 #install wfb-ng
