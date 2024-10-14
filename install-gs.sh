@@ -57,7 +57,7 @@ cd wfb-ng
 systemctl enable wifibroadcast
 systemctl enable wifibroadcast@gs
 
-cd ..
+cd /zero3w-gs
 
 
 #edit /etc/wifibroadcast to region 00
@@ -76,7 +76,7 @@ git clone https://github.com/OpenIPC/PixelPilot_rk.git
 cd PixelPilot_rk
 cmake -B build
 cmake --build build --target install
-cd ..
+cd /zero3w-gs
 
 
 echo "hotplugging of wfb-nics configuration"
@@ -88,4 +88,47 @@ cp autoload-wfb-nics.sh /config/scripts/
 cp init-nics.service /etc/systemd/system/
 systemctl enable init-nics.service
 cp 98-custom-wifi.rules /etc/udev/rules.d/
-cd ..
+cd /zero3w-gs
+
+echo "installing ffmpeg"
+#prerequisite installs and ffmpeg
+sudo apt -y install autoconf automake build-essential cmake git-core libass-dev libfreetype6-dev libgnutls28-dev libmp3lame-dev libsdl2-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev meson ninja-build pkg-config texinfo wget yasm zlib1g-dev libunistring-dev libaom-dev libdav1d-dev
+sudo apt -y install nasm libx264-dev libx265-dev libnuma-dev
+
+git clone -b jellyfin-mpp --depth=1 https://github.com/nyanmisaka/mpp.git rkmpp
+pushd rkmpp
+mkdir rkmpp_build
+pushd rkmpp_build
+cmake \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_SHARED_LIBS=ON \
+    -DBUILD_TEST=OFF \
+    ..
+make -j $(nproc)
+make install
+cd /zero3w-gs
+
+git clone -b jellyfin-rga --depth=1 https://github.com/nyanmisaka/rk-mirrors.git rkrga
+meson setup rkrga rkrga_build \
+    --prefix=/usr \
+    --libdir=lib \
+    --buildtype=release \
+    --default-library=shared \
+   -Dcpp_args=-fpermissive \
+   -Dlibdrm=false \
+   -Dlibrga_demo=false
+ninja -C rkrga_build install
+cd /zero3w-gs
+
+git clone --depth=1 https://github.com/nyanmisaka/ffmpeg-rockchip.git ffmpeg
+cd ffmpeg
+./configure --prefix=/usr --enable-gpl --enable-version3 --enable-libdrm --enable-rkmpp --enable-rkrga --enable-libx264 --enable-libx265 --extra-libs="-lpthread" --extra-cflags="-march=native" --enable-gnutls --enable-libass --enable-libfreetype --enable-libmp3lame --enable-libvorbis --enable-nonfree
+make -j $(nproc)
+
+./ffmpeg -decoders | grep rkmpp
+./ffmpeg -encoders | grep rkmpp
+./ffmpeg -filters | grep rkrga
+
+sudo make install
+cd /zero3w-gs
