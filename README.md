@@ -31,7 +31,7 @@ Files and installation script for the Radxa Zero 3w to run as an openipc grounds
 The script will do the following:
 
 * update, upgrade, and install some packages with apt
-* install AU and EU drivers
+* install wi-fi drivers
 * install wfb-ng
 * install PixelPilot
 * configure hotplugging of wfb-nics
