@@ -47,8 +47,14 @@ cp /zero3w-gs/drivers/8812eu.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/n
 #install 8733bu driver
 cp /zero3w-gs/drivers/8733bu.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/net/wireless/
 
-#install atheros firmware
+#install atheros firmware and patched kernel 
 apt install -y firmware-atheros
+
+cd /zero3w-gs/drivers
+dpkg -i linux-headers-5.10.160-299-rk356x_5.10.160-299_arm64.deb
+dpkg -i linux-image-5.10.160-299-rk356x_5.10.160-299_arm64.deb
+
+cd ..
 
 
 echo "installing wfb-ng"
