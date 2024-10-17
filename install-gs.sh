@@ -29,6 +29,24 @@ apt update && apt -y upgrade
 #install prerequisite programs
 apt install -y git cmake
 
+echo "installing wfb-ng"
+#install wfb-ng
+git clone https://github.com/svpcom/wfb-ng.git
+cd wfb-ng
+./scripts/install_gs.sh rtl0
+
+systemctl enable wifibroadcast
+systemctl enable wifibroadcast@gs
+
+cd ..
+
+#edit /etc/wifibroadcast to region 00
+cp /zero3w-gs/wfbng/wifibroadcast.cfg /etc/
+
+#transfer stock gs.key to /etc
+cp /zero3w-gs/wfbng/gs.key /etc/
+
+
 echo "Transferring drivers"
 cd /zero3w-gs/drivers
 dpkg -i linux-headers-5.10.160-38-rk356x_5.10.160-38_arm64.deb
@@ -56,23 +74,6 @@ chmod o+x /media
 mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.old
 cp /zero3w-gs/nginx/default /etc/nginx/sites-available/
 
-
-echo "installing wfb-ng"
-#install wfb-ng
-git clone https://github.com/svpcom/wfb-ng.git
-cd wfb-ng
-./scripts/install_gs.sh rtl0
-
-systemctl enable wifibroadcast
-systemctl enable wifibroadcast@gs
-
-cd ..
-
-#edit /etc/wifibroadcast to region 00
-cp /zero3w-gs/wfbng/wifibroadcast.cfg /etc/
-
-#transfer stock gs.key to /etc
-cp /zero3w-gs/wfbng/gs.key /etc/
 
 
 echo "installing PixelPilot"
