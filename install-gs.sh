@@ -27,7 +27,7 @@ systemctl disable openipc.service
 apt update && apt -y upgrade
 
 #install prerequisite programs
-apt install -y git cmake
+apt install -y git cmake build-essential
 
 
 echo "installing media server for dvr"
