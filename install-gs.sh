@@ -37,25 +37,6 @@ mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.old
 cp /zero3w-gs/nginx/default /etc/nginx/sites-available/
 
 
-echo "Transferring drivers"
-cd /zero3w-gs/drivers
-dpkg -i linux-headers-5.10.160-299-rk356x_5.10.160-299_arm64.deb
-dpkg -i linux-image-5.10.160-299-rk356x_5.10.160-299_arm64.deb
-
-cd ..
-
-#install AU driver
-cp /zero3w-gs/drivers/88XXau_wfb.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
-
-#install EU driver
-cp /zero3w-gs/drivers/8812eu.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
-
-#install 8733bu driver
-cp /zero3w-gs/drivers/8733bu.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
-
-#install atheros firmware and patched kernel 
-apt install -y firmware-atheros
-
 echo "installing wfb-ng"
 #install wfb-ng
 git clone https://github.com/svpcom/wfb-ng.git
@@ -96,3 +77,23 @@ cp init-nics.service /etc/systemd/system/
 systemctl enable init-nics.service
 cp 98-custom-wifi.rules /etc/udev/rules.d/
 cd ..
+
+echo "Transferring drivers"
+cd /zero3w-gs/drivers
+dpkg -i linux-headers-5.10.160-299-rk356x_5.10.160-299_arm64.deb
+dpkg -i linux-image-5.10.160-299-rk356x_5.10.160-299_arm64.deb
+
+cd ..
+
+#install AU driver
+cp /zero3w-gs/drivers/88XXau_wfb.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
+
+#install EU driver
+cp /zero3w-gs/drivers/8812eu.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
+
+#install 8733bu driver
+cp /zero3w-gs/drivers/8733bu.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
+
+#install atheros firmware
+apt install -y firmware-atheros
+
