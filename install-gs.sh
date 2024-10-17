@@ -38,24 +38,23 @@ cp /zero3w-gs/nginx/default /etc/nginx/sites-available/
 
 
 echo "Transferring drivers"
-#install AU driver
-cp /zero3w-gs/drivers/88XXau_wfb.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/net/wireless/
-
-#install EU driver
-cp /zero3w-gs/drivers/8812eu.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/net/wireless/
-
-#install 8733bu driver
-cp /zero3w-gs/drivers/8733bu.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/net/wireless/
-
-#install atheros firmware and patched kernel 
-apt install -y firmware-atheros
-
 cd /zero3w-gs/drivers
 dpkg -i linux-headers-5.10.160-299-rk356x_5.10.160-299_arm64.deb
 dpkg -i linux-image-5.10.160-299-rk356x_5.10.160-299_arm64.deb
 
 cd ..
 
+#install AU driver
+cp /zero3w-gs/drivers/88XXau_wfb.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
+
+#install EU driver
+cp /zero3w-gs/drivers/8812eu.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
+
+#install 8733bu driver
+cp /zero3w-gs/drivers/8733bu.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
+
+#install atheros firmware and patched kernel 
+apt install -y firmware-atheros
 
 echo "installing wfb-ng"
 #install wfb-ng
@@ -67,7 +66,6 @@ systemctl enable wifibroadcast
 systemctl enable wifibroadcast@gs
 
 cd ..
-
 
 #edit /etc/wifibroadcast to region 00
 cp /zero3w-gs/wfbng/wifibroadcast.cfg /etc/
