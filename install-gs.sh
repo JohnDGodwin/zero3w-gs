@@ -29,6 +29,39 @@ apt update && apt -y upgrade
 #install prerequisite programs
 apt install -y git cmake
 
+
+echo "installing media server for dvr"
+#install the media server for dvr
+apt -y install nginx-light
+chmod o+x /media
+mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.old
+cp /zero3w-gs/nginx/default /etc/nginx/sites-available/
+
+
+
+echo "installing PixelPilot"
+#install PixelPilot
+apt install librockchip-mpp-dev libdrm-dev libcairo-dev gstreamer1.0-rockchip1 librga-dev librga2 librockchip-mpp-dev librockchip-mpp1 librockchip-vpu0 libv4l-rkmpp libgl4es libgl4es-dev
+apt --no-install-recommends -y install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools
+
+git clone https://github.com/OpenIPC/PixelPilot_rk.git
+cd PixelPilot_rk
+cmake -B build
+cmake --build build --target install
+cd ..
+
+
+echo "hotplugging of wfb-nics configuration"
+#configure hotplugging of wfb-nics
+git clone https://github.com/JohnDGodwin/hot-plug-wfb-nics.git
+cd /zero3w-gs/hot-plug-wfb-nics/
+chmod +x autoload-wfb-nics.sh
+cp autoload-wfb-nics.sh /config/scripts/
+cp init-nics.service /etc/systemd/system/
+systemctl enable init-nics.service
+cp 98-custom-wifi.rules /etc/udev/rules.d/
+cd ..
+
 echo "Transferring drivers"
 cd /zero3w-gs/drivers
 dpkg -i linux-headers-5.10.160-299-rk356x_5.10.160-299_arm64.deb
@@ -66,36 +99,3 @@ apt install -y firmware-atheros
 
 #transfer stock gs.key to /etc
 #cp /zero3w-gs/wfbng/gs.key /etc/
-
-echo "installing media server for dvr"
-#install the media server for dvr
-apt -y install nginx-light
-chmod o+x /media
-mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.old
-cp /zero3w-gs/nginx/default /etc/nginx/sites-available/
-
-
-
-echo "installing PixelPilot"
-#install PixelPilot
-apt install librockchip-mpp-dev libdrm-dev libcairo-dev gstreamer1.0-rockchip1 librga-dev librga2 librockchip-mpp-dev librockchip-mpp1 librockchip-vpu0 libv4l-rkmpp libgl4es libgl4es-dev
-apt --no-install-recommends -y install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools
-
-git clone https://github.com/OpenIPC/PixelPilot_rk.git
-cd PixelPilot_rk
-cmake -B build
-cmake --build build --target install
-cd ..
-
-
-echo "hotplugging of wfb-nics configuration"
-#configure hotplugging of wfb-nics
-git clone https://github.com/JohnDGodwin/hot-plug-wfb-nics.git
-cd /zero3w-gs/hot-plug-wfb-nics/
-chmod +x autoload-wfb-nics.sh
-cp autoload-wfb-nics.sh /config/scripts/
-cp init-nics.service /etc/systemd/system/
-systemctl enable init-nics.service
-cp 98-custom-wifi.rules /etc/udev/rules.d/
-cd ..
-
