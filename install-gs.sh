@@ -63,6 +63,9 @@ cp /zero3w-gs/drivers/8812eu.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/n
 #install 8733bu driver
 cp /zero3w-gs/drivers/8733bu.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/net/wireless/
 
+#install 88x2bu driver
+cp /zero3w-gs/drivers/88x2bu.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/net/wireless/
+
 #install atheros firmware
 apt install -y firmware-atheros
 
