@@ -83,19 +83,17 @@ cp /zero3w-gs/drivers/88x2bu.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/
 #install atheros firmware
 apt install -y firmware-atheros
 
-#echo "installing wfb-ng"
 #install wfb-ng
-#git clone https://github.com/svpcom/wfb-ng.git
-#cd wfb-ng
-#./scripts/install_gs.sh rtl0
+echo "installing wfb-ng"
+git clone https://github.com/svpcom/wfb-ng.git
+.zero3w-gs/wfb-ng/scripts/install_gs.sh rtl0
 
-#systemctl enable wifibroadcast
-#systemctl enable wifibroadcast@gs
+systemctl enable wifibroadcast
+systemctl enable wifibroadcast@gs
 
-#cd ..
 
 #edit /etc/wifibroadcast to region 00
-#cp /zero3w-gs/wfbng/wifibroadcast.cfg /etc/
+cp /zero3w-gs/wfbng/wifibroadcast.cfg /etc/
 
 #transfer stock gs.key to /etc
-#cp /zero3w-gs/wfbng/gs.key /etc/
+cp /zero3w-gs/wfbng/gs.key /etc/
