@@ -98,7 +98,9 @@ apt install -y firmware-atheros
 #install wfb-ng
 echo "installing wfb-ng"
 git clone https://github.com/svpcom/wfb-ng.git
-.zero3w-gs/wfb-ng/scripts/install_gs.sh rtl0
+cd wfb-ng
+./scripts/install_gs.sh rtl0
+cd ..
 
 systemctl enable wifibroadcast
 systemctl enable wifibroadcast@gs
