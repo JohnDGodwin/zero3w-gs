@@ -27,7 +27,8 @@ systemctl disable openipc.service
 apt update && apt -y upgrade
 
 #install prerequisite programs
-apt install -y git cmake
+apt install -y git cmake build-essential
+
 
 echo "installing media server for dvr"
 #install the media server for dvr
@@ -36,38 +37,6 @@ chmod o+x /media
 mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.old
 cp /zero3w-gs/nginx/default /etc/nginx/sites-available/
 
-
-echo "Transferring drivers"
-#install AU driver
-cp /zero3w-gs/drivers/88XXau_wfb.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/net/wireless/
-
-#install EU driver
-cp /zero3w-gs/drivers/8812eu.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/net/wireless/
-
-#install 8733bu driver
-cp /zero3w-gs/drivers/8733bu.ko /lib/modules/5.10.160-38-rk356x/kernel/drivers/net/wireless/
-
-#install atheros firmware
-apt install -y firmware-atheros
-
-
-echo "installing wfb-ng"
-#install wfb-ng
-git clone https://github.com/svpcom/wfb-ng.git
-cd wfb-ng
-./scripts/install_gs.sh rtl0
-
-systemctl enable wifibroadcast
-systemctl enable wifibroadcast@gs
-
-cd ..
-
-
-#edit /etc/wifibroadcast to region 00
-cp /zero3w-gs/wfbng/wifibroadcast.cfg /etc/
-
-#transfer stock gs.key to /etc
-cp /zero3w-gs/wfbng/gs.key /etc/
 
 
 echo "installing PixelPilot"
@@ -92,3 +61,39 @@ cp init-nics.service /etc/systemd/system/
 systemctl enable init-nics.service
 cp 98-custom-wifi.rules /etc/udev/rules.d/
 cd ..
+
+echo "Transferring drivers"
+cd /zero3w-gs/drivers
+dpkg -i linux-headers-5.10.160-299-rk356x_5.10.160-299_arm64.deb
+dpkg -i linux-image-5.10.160-299-rk356x_5.10.160-299_arm64.deb
+cd ..
+
+#install AU driver
+cp /zero3w-gs/drivers/88XXau_wfb.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
+
+#install EU driver
+cp /zero3w-gs/drivers/8812eu.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
+
+#install 8733bu driver
+cp /zero3w-gs/drivers/8733bu.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
+
+#install 88x2bu driver
+cp /zero3w-gs/drivers/88x2bu.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
+
+#install atheros firmware
+apt install -y firmware-atheros
+
+#install wfb-ng
+echo "installing wfb-ng"
+git clone https://github.com/svpcom/wfb-ng.git
+.zero3w-gs/wfb-ng/scripts/install_gs.sh rtl0
+
+systemctl enable wifibroadcast
+systemctl enable wifibroadcast@gs
+
+
+#edit /etc/wifibroadcast to region 00
+cp /zero3w-gs/wfbng/wifibroadcast.cfg /etc/
+
+#transfer stock gs.key to /etc
+cp /zero3w-gs/wfbng/gs.key /etc/
