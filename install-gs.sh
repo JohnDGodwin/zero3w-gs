@@ -25,7 +25,6 @@ cp /zero3w-gs/scripts/* /config/scripts/
 #setup openipc systemd service
 echo "setting up openipc systemd service"
 cp /zero3w-gs/openipc/openipc.service /etc/systemd/system/
-systemctl disable openipc.service
 
 ###
 
@@ -74,21 +73,15 @@ cd ..
 
 echo "Transferring drivers"
 cd /zero3w-gs/drivers
-dpkg -i linux-headers-5.10.160-299-rk356x_5.10.160-299_arm64.deb
-dpkg -i linux-image-5.10.160-299-rk356x_5.10.160-299_arm64.deb
+dpkg -i linux-headers-5.10.160-openipc-rk356x_5.10.160-openipc_arm64.deb
+dpkg -i linux-image-5.10.160-openipc-rk356x_5.10.160-openipc_arm64.deb
 cd ..
 
-#install AU driver
-#cp /zero3w-gs/drivers/88XXau_wfb.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
-
 #install EU driver
-cp /zero3w-gs/drivers/8812eu.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
+cp /zero3w-gs/drivers/8812eu.ko /lib/modules/5.10.160-openipc-rk356x/kernel/drivers/net/wireless/
 
 #install 8733bu driver
-cp /zero3w-gs/drivers/8733bu.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
-
-#install 88x2bu driver
-#cp /zero3w-gs/drivers/88x2bu.ko /lib/modules/5.10.160-299-rk356x/kernel/drivers/net/wireless/
+cp /zero3w-gs/drivers/8733bu.ko /lib/modules/5.10.160-openipc-rk356x/kernel/drivers/net/wireless/
 
 #install atheros firmware
 apt install -y firmware-atheros
