@@ -3,6 +3,7 @@
 DVR_PATH=/media
 SCREEN_MODE=$(</config/scripts/screen-mode)
 REC_FPS=$(</config/scripts/rec-fps)
+OSD=$(</config/scripts/osd)
 PID=0
 
 DVR_BUTTON=`gpiofind PIN_32`
@@ -37,9 +38,28 @@ fi
 
 
 #Start PixelPilot
-pixelpilot --osd --osd-elements video --screen-mode $SCREEN_MODE --dvr-framerate $REC_FPS --dvr-fmp4 --dvr-template $DVR_PATH/record_%Y-%m-%d_%H-%M-%S.mp4 &
+pixelpilot --osd --osd-elements 0 --osd-custom-message --osd-config /config/scripts/osd.json --screen-mode $SCREEN_MODE --dvr-framerate $REC_FPS --dvr-fmp4 --dvr-template $DVR_PATH/record_%Y-%m-%d_%H-%M-%S.mp4 &
 PID=$!
 
+#Start MSPOSD on gs-side
+if [[ "$OSD" == "ground" ]]; then
+
+    # Wait for IP to become available, with timeout
+    max_attempts=30  # 30 attempts = 60 seconds with 2 second sleep
+    attempt=1
+    
+    echo "Waiting for 10.5.0.1 to become available..."
+    while ! ping -c 1 -W 1 10.5.0.1 >/dev/null 2>&1; do
+        if [ $attempt -ge $max_attempts ]; then
+            exit 1
+        fi
+        sleep 2
+        ((attempt++))
+    done
+    
+    echo "IP 10.5.0.1 is available, starting msposd_rockchip"
+    msposd_rockchip --osd --ahi 0 --matrix 11 -v -r 5 --master 10.5.0.1:5000 &
+fi
 
 #Begin monitoring gpio for button presses
 echo "Monitoring buttons"
@@ -66,15 +86,15 @@ while true; do
                 fi
 
                 if [[ $bandwidth -eq 20 ]]; then
-                        echo "setting to 40MHz"
+                        echo "setting to 40MHz" > /run/pixelpilot.msg
                         sudo sed -i "/^bandwidth =/ s/=.*/= 40/" $WFB_CFG
                         sudo systemctl restart wifibroadcast
                 elif [[ $bandwidth -eq 40 ]]; then
-                        echo "setting to 20MHz"
+                        echo "setting to 20MHz" > /run/pixelpilot.msg
                         sudo sed -i "/^bandwidth =/ s/=.*/= 20/" $WFB_CFG
                         sudo systemctl restart wifibroadcast
                 fi
-        
+
         elif [ "$UP_BUTTON_STATE" -eq 1 ]; then
                 bandwidth=$(grep '^bandwidth =' $WFB_CFG | cut -d'=' -f2 | sed 's/^ //')
                 if [ "$bandwidth" -eq 20 ]; then
@@ -85,11 +105,9 @@ while true; do
                         fi
                         Freq=${full_freq_list[$i]}
                         Chan=${full_chan_list[$i]}
-                        for NIC in "${NICS[@]}"; do
-                                sudo iw "$NIC" set freq $Freq
-                        done
                         sudo sed -i "s/wifi_channel = .*/wifi_channel = $Chan/" /etc/wifibroadcast.cfg
-                        echo "$Freq"
+                        echo "$Freq" > /run/pixelpilot.msg
+                        sudo systemctl restart wifibroadcast
                 elif [ "$bandwidth" -eq 40 ]; then
                         i=$((i+1))
                         if [[ $i -gt 12 ]]
@@ -98,11 +116,9 @@ while true; do
                         fi
                         Freq=${wide_freq_list[$i]}
                         Chan=${wide_chan_list[$i]}
-                        for NIC in "${NICS[@]}"; do
-                                sudo iw "$NIC" set freq $Freq
-                        done
                         sudo sed -i "s/wifi_channel = .*/wifi_channel = $Chan/" /etc/wifibroadcast.cfg
-                        echo "$Freq"
+                        echo "$Freq" > /run/pixelpilot.msg
+                        sudo systemctl restart wifibroadcast
                 fi
 
         elif [ "$DOWN_BUTTON_STATE" -eq 1 ]; then
@@ -115,11 +131,9 @@ while true; do
                         fi
                         Freq=${full_freq_list[$i]}
                         Chan=${full_chan_list[$i]}
-                        for NIC in "${NICS[@]}"; do
-                                sudo iw "$NIC" set freq $Freq
-                        done
                         sudo sed -i "s/wifi_channel = .*/wifi_channel = $Chan/" /etc/wifibroadcast.cfg
-                        echo "$Freq"
+                        echo "$Freq" > /run/pixelpilot.msg
+                        sudo systemctl restart wifibroadcast
                 elif [ "$bandwidth" -eq 40 ]; then
                         i=$((i-1))
                         if [[ $i -lt 0 ]]
@@ -128,11 +142,9 @@ while true; do
                         fi
                         Freq=${wide_freq_list[$i]}
                         Chan=${wide_chan_list[$i]}
-                        for NIC in "${NICS[@]}"; do
-                                sudo iw "$NIC" set freq $Freq
-                        done
                         sudo sed -i "s/wifi_channel = .*/wifi_channel = $Chan/" /etc/wifibroadcast.cfg
-                        echo "$Freq"
+                        echo "$Freq" > /run/pixelpilot.msg
+                        sudo systemctl restart wifibroadcast
                 fi
         fi
 sleep 0.1
