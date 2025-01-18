@@ -5,9 +5,8 @@ SCREEN_MODE=$(grep "^mode = " /config/scripts/screen-mode | cut -d'=' -f2 | tr -
 REC_FPS=$(grep "^fps = " /config/scripts/rec-fps | cut -d'=' -f2 | tr -d ' ')
 OSD=$(grep "^render = " /config/scripts/osd | cut -d'=' -f2 | tr -d ' ')
 PID=0
-PLOTTER_PID=0
 AP_MODE=0
-LONG_PRESS_DURATION=2  # Duration in seconds for long press
+LONG_PRESS_DURATION=3  # Duration in seconds for long press
 
 # Button GPIO assignments
 DVR_BUTTON=`gpiofind PIN_32`
@@ -34,8 +33,8 @@ start_ap_mode() {
     # Start services
     sudo systemctl start hostapd
     sudo ip link set wlan0 up
-    sudo python3 /config/wfb_plotter/plotter.py &
-    $PLOTTER_PID=$!
+    cd /home/radxa/
+    sudo python3 /home/radxa/plotter.py &
     
     # Start DHCP server
     sudo systemctl start dnsmasq
@@ -49,8 +48,7 @@ start_ap_mode() {
 stop_ap_mode() {
     echo "Stopping AP mode..." > /run/pixelpilot.msg
     echo "Stopping AP mode..."
-    sudo kill $PLOTTER_PID
-    $PLOTTER_PID=0
+    sudo pkill -f "python3 /home/radxa/plotter.py"
     sudo systemctl stop hostapd
     sudo systemctl stop dnsmasq
     
@@ -90,8 +88,8 @@ else
 fi
 
 #Start PixelPilot
-pixelpilot --osd --osd-elements 0 --osd-custom-message --osd-config /config/scripts/osd.json --screen-mode $SCREEN_MODE --dvr-framerate $REC_FPS --dvr-fmp4 --dvr-template $DVR_PATH/record_%Y-%m-%d_%H-%M-%S.mp4 &
-PID=$!
+#pixelpilot --osd --osd-elements 0 --osd-custom-message --osd-config /config/scripts/osd.json --screen-mode $SCREEN_MODE --dvr-framerate $REC_FPS --dvr-fmp4 --dvr-template $DVR_PATH/record_%Y-%m-%d_%H-%M-%S.mp4 &
+#PID=$!
 
 #Start MSPOSD on gs-side
 if [[ "$OSD" == "ground" ]]; then
