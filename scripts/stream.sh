@@ -33,8 +33,8 @@ start_ap_mode() {
     # Start services
     sudo systemctl start hostapd
     sudo ip link set wlan0 up
-    cd /home/radxa/
-    sudo python3 /home/radxa/plotter.py &
+    cd /config/wfb_plotter
+    sudo python3 /config/wfb_plotter/plotter.py &
     
     # Start DHCP server
     sudo systemctl start dnsmasq
@@ -48,7 +48,7 @@ start_ap_mode() {
 stop_ap_mode() {
     echo "Stopping AP mode..." > /run/pixelpilot.msg
     echo "Stopping AP mode..."
-    sudo pkill -f "python3 /home/radxa/plotter.py"
+    sudo pkill -f "python3 /config/wfb_plotter/plotter.py"
     sudo systemctl stop hostapd
     sudo systemctl stop dnsmasq
     
