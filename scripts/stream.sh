@@ -59,7 +59,7 @@ start_ap_mode() {
 
     # Start web UI
     cd /config/webUI
-    sudo systemctl start webUI.service
+    sudo python3 /config/webUI/app.py &
     sleep 2
     
     # Start DHCP server and verify
@@ -80,7 +80,7 @@ start_ap_mode() {
 stop_ap_mode() {
     echo "Stopping AP mode..." > /run/pixelpilot.msg
     echo "Stopping AP mode..."
-    sudo systemctl stop webUI.service
+    sudo pkill python3 /config/webUI/app.py
     sudo systemctl stop hostapd
     sudo systemctl stop dnsmasq
     
