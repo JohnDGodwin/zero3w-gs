@@ -1,5 +1,5 @@
 [Unit]
-Description="start ap mode service"
+Description="stop ap mode service"
 After=multi-user.target
 StartLimitIntervalSec=10
 StartLimitBurst=0
