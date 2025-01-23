@@ -4,7 +4,6 @@
     echo "Starting AP mode..." > /run/pixelpilot.msg
 
     # Stop any existing wireless services that might interfere
-    sudo systemctl stop wifibroadcast 2>/dev/null
     sudo systemctl stop hostapd 2>/dev/null
     sudo systemctl stop dnsmasq 2>/dev/null
     sleep 1
@@ -56,4 +55,3 @@
     
     echo "AP mode on." > /run/pixelpilot.msg
     echo "AP mode started. Connect to 'RadxaGroundstation' network to access files."
-    return 0
