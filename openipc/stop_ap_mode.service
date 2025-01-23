@@ -6,7 +6,7 @@ StartLimitBurst=0
 
 [Service]
 Type=simple
-ExecStart=bash /config/scripts/start_ap_mode.sh
+ExecStart=bash /config/scripts/stop_ap_mode.sh
 
 [Install]
 WantedBy=multi-user.target
