@@ -10,4 +10,3 @@
     sudo ip addr flush dev wlan0
     
     echo "AP mode off." > /run/pixelpilot.msg
-    return 0
