@@ -6,7 +6,7 @@ REC_FPS=$(grep "^fps = " /config/scripts/rec-fps | cut -d'=' -f2 | tr -d ' ')
 OSD=$(grep "^render = " /config/scripts/osd | cut -d'=' -f2 | tr -d ' ')
 PID=0
 AP_MODE=0
-LONG_PRESS_DURATION=3  # Duration in seconds for long press
+LONG_PRESS_DURATION=4  # Duration in seconds for long press
 
 # Button GPIO assignments
 DVR_BUTTON=`gpiofind PIN_32`
@@ -19,28 +19,30 @@ MHZ_BUTTON=`gpiofind PIN_38`
 # Function to start AP mode
 start_ap_mode() {
     echo "Starting AP mode..." > /run/pixelpilot.msg
-    echo "Stopping wifibroadcast service..."
-    sudo systemctl stop wifibroadcast
-    sudo systemctl stop wifibroadcast@gs
 
     # Configure internal WiFi for AP mode
     sudo ip link set wlan0 down
+    sleep 0.1
     sudo ip addr flush dev wlan0
+    sleep 0.1
 
     # Configure network
     sudo ip addr add 192.168.4.1/24 dev wlan0
+    sleep 0.1
 
     # Start services
     sudo systemctl start hostapd
+    sleep 0.1
     sudo ip link set wlan0 up
-    cd /config/wfb_plotter
-    sudo python3 /config/wfb_plotter/plotter.py &
+    cd /config/webUI
+    sudo python3 /config/webUI/app.py &
+    sleep 0.1
     
     # Start DHCP server
     sudo systemctl start dnsmasq
     
     AP_MODE=1
-    echo "AP mode started." > /run/pixelpilot.msg
+    echo "AP mode on." > /run/pixelpilot.msg
     echo "AP mode started. Connect to 'RadxaGroundstation' network to access files."
 }
 
@@ -48,18 +50,15 @@ start_ap_mode() {
 stop_ap_mode() {
     echo "Stopping AP mode..." > /run/pixelpilot.msg
     echo "Stopping AP mode..."
-    sudo pkill -f "python3 /config/wfb_plotter/plotter.py"
+    sudo pkill -f "python3 /config/webUI/app.py"
     sudo systemctl stop hostapd
     sudo systemctl stop dnsmasq
     
     sudo ip link set wlan0 down
     sudo ip addr flush dev wlan0
     
-    # Restart wifibroadcast service
-    sudo systemctl start wifibroadcast
-    sudo systemctl start wifibroadcast@gs
     AP_MODE=0
-    echo "Wifibroadcast restored." > /run/pixelpilot.msg
+    echo "AP mode off." > /run/pixelpilot.msg
     echo "Wifibroadcast mode restored."
 }
 
@@ -94,7 +93,7 @@ PID=$!
 #Start MSPOSD on gs-side
 if [[ "$OSD" == "ground" ]]; then
     # Wait for IP to become available, with timeout
-    max_attempts=30  # 30 attempts = 60 seconds with 2 second sleep
+    max_attempts=60  # 60 attempts = 120 seconds with 2 second sleep
     attempt=1
     
     echo "Waiting for 10.5.0.1 to become available..."
