@@ -43,7 +43,7 @@
 
     # Start web UI
     cd /config/webUI
-    sudo python3 /config/webUI/app.py &
+    sudo systemctl start webUI.service
     sleep 2
     
     # Start DHCP server and verify
