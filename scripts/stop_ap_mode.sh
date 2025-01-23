@@ -2,7 +2,7 @@
 
     echo "Stopping AP mode..." > /run/pixelpilot.msg
     echo "Stopping AP mode..."
-    sudo pkill -f "python3 /config/webUI/app.py"
+    sudo systemctl stop webUI.service
     sudo systemctl stop hostapd
     sudo systemctl stop dnsmasq
     
