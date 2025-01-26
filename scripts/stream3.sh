@@ -84,7 +84,7 @@ PID=$!
 #Start MSPOSD on gs-side
 if [[ "$OSD" == "ground" ]]; then
     # Wait for IP to become available, with timeout
-    max_attempts=60  # 60 attempts = 120 seconds with 2 second sleep
+    max_attempts=120  # 120 attempts = 10 minutes with 5 second sleep
     attempt=1
     
     echo "Waiting for 10.5.0.1 to become available..."
@@ -92,7 +92,7 @@ if [[ "$OSD" == "ground" ]]; then
         if [ $attempt -ge $max_attempts ]; then
             exit 1
         fi
-        sleep 2
+        sleep 5
         ((attempt++))
     done
     
