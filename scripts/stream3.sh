@@ -130,6 +130,27 @@ while true; do
                     sleep 1
                 fi
             fi
+        else
+            # Regular short press handling for MHZ button
+            if [ "$mhz_press_start" -ne 0 ] && [ "$AP_MODE" -eq 0 ]; then
+                echo "toggling 40MHz bandwidth"
+                if [[ -f "$WFB_CFG" ]]; then
+                    bandwidth=$(grep '^bandwidth =' $WFB_CFG | cut -d'=' -f2 | sed 's/^ //')
+                else
+                    echo "File $WFB_CFG not found."
+                fi
+
+                if [[ $bandwidth -eq 20 ]]; then
+                    echo "setting to 40MHz" > /run/pixelpilot.msg
+                    sudo sed -i "/^bandwidth =/ s/=.*/= 40/" $WFB_CFG
+                    sudo systemctl restart wifibroadcast
+                elif [[ $bandwidth -eq 40 ]]; then
+                    echo "setting to 20MHz" > /run/pixelpilot.msg
+                    sudo sed -i "/^bandwidth =/ s/=.*/= 20/" $WFB_CFG
+                    sudo systemctl restart wifibroadcast
+                fi
+            fi
+            mhz_press_start=0
         fi
 
         # Regular button handling (only when not in AP mode)
