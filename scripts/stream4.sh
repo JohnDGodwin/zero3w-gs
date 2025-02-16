@@ -7,7 +7,7 @@ OSD=$(grep "^render = " /config/scripts/osd | cut -d'=' -f2 | tr -d ' ')
 PID=0
 AP_MODE=0
 LONG_PRESS_DURATION=4  # Duration in seconds for long press
-DVR_SENTINEL=$(grep "^file_sentinel = " /config/scripts/dvr_sentinel | cut -d'=' -f2 | tr -d ' ')
+DVR_SENTINEL=$(grep "^dvr_sentinel = " /config/scripts/dvr_sentinel | cut -d'=' -f2 | tr -d ' ')
 
 # Button GPIO assignments
 DVR_BUTTON=`gpiofind PIN_32`
