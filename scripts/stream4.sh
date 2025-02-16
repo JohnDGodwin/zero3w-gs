@@ -157,7 +157,7 @@ while true; do
         # Regular button handling (only when not in AP mode)
         if [ "$AP_MODE" -eq 0 ]; then
             if [ "$DVR_BUTTON_STATE" -eq 1 ]; then
-                $DVR_SENTNEL=$((DVR_SENTINEL+1))
+                ((DVR_SENINEL++))
                 echo "toggle DVR for $PID"
                 kill -SIGUSR1 $PID
                 sleep 1
