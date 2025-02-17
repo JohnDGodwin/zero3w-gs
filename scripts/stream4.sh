@@ -169,7 +169,7 @@ while true; do
                     REC_STATE=0
                     DVR_SENTINEL=$((DVR_SENTINEL + 1))
                     sed -i 's/dvr_sentinel = \([0-9]*\)/dvr_sentinel = '$(($(grep -o '[0-9]*' dvr_sentinel.txt) + 1))'/' /config/scripts/dvr_sentinel
-                    sleep1
+                    sleep 1
                 fi
             elif [ "$UP_BUTTON_STATE" -eq 1 ]; then
                 # Your existing UP button handling code
