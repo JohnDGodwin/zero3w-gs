@@ -157,11 +157,19 @@ while true; do
 
         # Regular button handling (only when not in AP mode)
         if [ "$AP_MODE" -eq 0 ]; then
-    
             if [ "$DVR_BUTTON_STATE" -eq 1 ]; then
-                echo "toggle DVR for $PID"
-                kill -SIGUSR1 $PID
-                sleep 1
+                if [ "$REC_STATE" -eq 0 ]; then
+                    echo "starting DVR for $PID"
+                    kill -SIGUSR1 $PID
+                    REC_STATE=1
+                    sleep 1
+                elif [ "$REC_STATE" -eq 1 ]; then
+                    echo "stopping DVR for $PID"
+                    kill -SIGUSR1 $PID
+                    REC_STATE=0
+                    DVR_SENTINEL=$((DVR_SENTINEL + 1))
+                    sleep1
+                fi
             elif [ "$UP_BUTTON_STATE" -eq 1 ]; then
                 # Your existing UP button handling code
                 bandwidth=$(grep '^bandwidth =' $WFB_CFG | cut -d'=' -f2 | sed 's/^ //')
