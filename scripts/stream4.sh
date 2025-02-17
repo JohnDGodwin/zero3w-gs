@@ -4,10 +4,12 @@ DVR_PATH=/media
 SCREEN_MODE=$(grep "^mode = " /config/scripts/screen-mode | cut -d'=' -f2 | tr -d ' ')
 REC_FPS=$(grep "^fps = " /config/scripts/rec-fps | cut -d'=' -f2 | tr -d ' ')
 OSD=$(grep "^render = " /config/scripts/osd | cut -d'=' -f2 | tr -d ' ')
+DVR_SENTINEL=$(grep "^dvr_sentinel = " /config/scripts/dvr_sentinel | cut -d'=' -f2 | tr -d ' ')
 PID=0
 AP_MODE=0
+REC_STATE=0
+mhz_press_start=0
 LONG_PRESS_DURATION=4  # Duration in seconds for long press
-DVR_SENTINEL=$(grep "^dvr_sentinel = " /config/scripts/dvr_sentinel | cut -d'=' -f2 | tr -d ' ')
 
 # Button GPIO assignments
 DVR_BUTTON=`gpiofind PIN_32`
@@ -16,6 +18,7 @@ DOWN_BUTTON=`gpiofind PIN_18`
 LEFT_BUTTON=`gpiofind PIN_13`
 RIGHT_BUTTON=`gpiofind PIN_11`
 MHZ_BUTTON=`gpiofind PIN_38`
+
 
 # Function to start AP mode
 start_ap_mode() {
@@ -101,8 +104,6 @@ if [[ "$OSD" == "ground" ]]; then
     msposd_rockchip --osd --ahi 0 --matrix 11 -v -r 5 --master 10.5.0.1:5000 &
 fi
 
-# Variables for button press timing
-mhz_press_start=0
 
 #Begin monitoring gpio for button presses
 echo "Monitoring buttons"
@@ -156,8 +157,8 @@ while true; do
 
         # Regular button handling (only when not in AP mode)
         if [ "$AP_MODE" -eq 0 ]; then
+    
             if [ "$DVR_BUTTON_STATE" -eq 1 ]; then
-                ((DVR_SENINEL++))
                 echo "toggle DVR for $PID"
                 kill -SIGUSR1 $PID
                 sleep 1
