@@ -178,7 +178,7 @@ while true; do
                     # Extract filename without path and extension
                     filename=$(basename "$latest_video" .mp4)
                     # Generate thumbnail
-                    ffmpeg -i "$latest_video" -ss 00:00:01 -vframes 1 -vf "scale=320:-1" "/config/webUI/static/thumbnails/${filename}.jpg" -y
+                    ffmpegthumbnailer -i "$latest_video" -o "/config/webUI/static/thumbnails/${filename}.jpg" -s 320
                     fi
                 fi
             elif [ "$UP_BUTTON_STATE" -eq 1 ]; then
