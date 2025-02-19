@@ -54,6 +54,10 @@ stop_ap_mode() {
     echo "AP mode off."
 }
 
+get_latest_video() {
+    find "$DVR_PATH" -name "record_*.mp4" -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" "
+}
+
 # Rest of your existing variables and initialization code...
 i=0
 
@@ -168,8 +172,13 @@ while true; do
                     echo "toggle DVR for $PID"
                     kill -SIGUSR1 $PID
                     DVR_RECORDING=0
-                    sleep 1
-                    
+                    sleep 2
+                    latest_video=$(get_latest_video)
+                    if [ -n "$latest_video" ]; then
+                    # Extract filename without path and extension
+                    filename=$(basename "$latest_video" .mp4)
+                    # Generate thumbnail
+                    mediainfo --Inform="Video;%FrameCount%" "$latest_video" > "/config/webUI/static/thumbnails/${filename}.jpg"                    fi
                 fi
             elif [ "$UP_BUTTON_STATE" -eq 1 ]; then
                 # Your existing UP button handling code
