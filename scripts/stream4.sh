@@ -178,7 +178,8 @@ while true; do
                     # Extract filename without path and extension
                     filename=$(basename "$latest_video" .mp4)
                     # Generate thumbnail
-                    mediainfo --Inform="Video;%FrameCount%" "$latest_video" > "/config/webUI/static/thumbnails/${filename}.jpg"                    fi
+                    mediainfo --Inform="Video;%FrameCount%" "$latest_video" > "/config/webUI/static/thumbnails/${filename}.jpg"
+                    fi
                 fi
             elif [ "$UP_BUTTON_STATE" -eq 1 ]; then
                 # Your existing UP button handling code
