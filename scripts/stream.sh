@@ -122,21 +122,8 @@ PID=$!
 
 #Start MSPOSD on gs-side
 if [[ "$OSD" == "ground" ]]; then
-    # Wait for IP to become available, with timeout
-    max_attempts=60  # 60 attempts = 120 seconds with 2 second sleep
-    attempt=1
-    
-    echo "Waiting for 10.5.0.1 to become available..."
-    while ! ping -c 1 -W 1 10.5.0.1 >/dev/null 2>&1; do
-        if [ $attempt -ge $max_attempts ]; then
-            exit 1
-        fi
-        sleep 2
-        ((attempt++))
-    done
-    
-    echo "IP 10.5.0.1 is available, starting msposd_rockchip"
-    msposd_rockchip --osd --ahi 0 --matrix 11 -v -r 5 --master 10.5.0.1:5000 &
+    echo "starting msposd_rockchip"
+    msposd_rockchip --osd --ahi 0 --matrix 11 -v -r 5 --master 0.0.0.0:14551 &
 fi
 
 # Variables for button press timing
