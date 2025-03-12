@@ -106,7 +106,7 @@ if [[ "$OSD" == "ground" ]]; then
     done
     
     echo "IP 10.5.0.1 is available, starting msposd_rockchip"
-    msposd_rockchip --osd --ahi 0 --matrix 11 -v -r 5 --master 10.5.0.1:5000 &
+    msposd_rockchip --osd --ahi 0 --matrix 11 -v -r 5 --master 10.5.0.1:14551 &
 fi
 
 # Variables for button press timing
