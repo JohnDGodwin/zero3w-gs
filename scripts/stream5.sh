@@ -55,7 +55,7 @@ stop_ap_mode() {
 }
 
 get_latest_video() {
-    find "$DVR_PATH" -name "record_*.mp4" -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" "
+    find "$DVR_PATH" -name "*.mp4" -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" "
 }
 
 # Rest of your existing variables and initialization code...
