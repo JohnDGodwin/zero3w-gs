@@ -92,7 +92,7 @@ PID=$!
 
 #Start MSPOSD on gs-side
 if [[ "$OSD" == "ground" ]]; then
-    msposd_rockchip --osd --ahi 0 --matrix 11 -v -r 5 --master 10.5.0.1:14551 &
+    msposd_rockchip --osd --ahi 0 --matrix 11 -v -r 5 --master 0.0.0.0:14551 &
 fi
 
 # Variables for button press timing
