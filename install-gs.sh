@@ -63,11 +63,11 @@ apt install -y git cmake build-essential
 
 ###
 
-# echo "Transferring drivers"
-# cd /zero3w-gs/drivers
-# dpkg -i linux-headers-5.10.160-openipc-rk356x_5.10.160-openipc_arm64.deb
-# dpkg -i linux-image-5.10.160-openipc-rk356x_5.10.160-openipc_arm64.deb
-# cd ..
+echo "Transferring drivers"
+cd /zero3w-gs/drivers
+dpkg -i linux-headers-5.10.160-420-rk356x_5.10.160-420_arm64.deb
+dpkg -i linux-image-5.10.160-420-rk356x_5.10.160-420_arm64.deb
+cd ..
 
 #install EU driver
 # cp /zero3w-gs/drivers/8812eu.ko /lib/modules/5.10.160-openipc-rk356x/kernel/drivers/net/wireless/
