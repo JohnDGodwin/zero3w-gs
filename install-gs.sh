@@ -17,15 +17,15 @@ systemctl enable ssh
 ###
 
 #setup scripts folder
-echo "setting up scripts folder"
-mkdir /config/scripts
-cp /zero3w-gs/scripts/* /config/scripts/
+# echo "setting up scripts folder"
+# mkdir /config/scripts
+# cp /zero3w-gs/scripts/* /config/scripts/
 
 ###
 
 #setup openipc systemd service
-echo "setting up openipc systemd service"
-cp /zero3w-gs/openipc/openipc.service /etc/systemd/system/
+# echo "setting up openipc systemd service"
+# cp /zero3w-gs/openipc/openipc.service /etc/systemd/system/
 
 ###
 
@@ -50,16 +50,16 @@ apt install -y git cmake build-essential
 
 ###
 
-echo "hotplugging of wfb-nics configuration"
+# echo "hotplugging of wfb-nics configuration"
 #configure hotplugging of wfb-nics
-git clone https://github.com/JohnDGodwin/hot-plug-wfb-nics.git
-cd /zero3w-gs/hot-plug-wfb-nics/
-chmod +x autoload-wfb-nics.sh
-cp autoload-wfb-nics.sh /config/scripts/
-cp init-nics.service /etc/systemd/system/
-systemctl enable init-nics.service
-cp 98-custom-wifi.rules /etc/udev/rules.d/
-cd ..
+# git clone https://github.com/JohnDGodwin/hot-plug-wfb-nics.git
+# cd /zero3w-gs/hot-plug-wfb-nics/
+# chmod +x autoload-wfb-nics.sh
+# cp autoload-wfb-nics.sh /config/scripts/
+# cp init-nics.service /etc/systemd/system/
+# systemctl enable init-nics.service
+# cp 98-custom-wifi.rules /etc/udev/rules.d/
+# cd ..
 
 ###
 
