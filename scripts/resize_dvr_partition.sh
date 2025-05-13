@@ -21,7 +21,6 @@ EOF
 
 sleep 0.2
 
-sudo e2fsck -f ${partition}
 sudo resize2fs ${partition}
 
 exit
