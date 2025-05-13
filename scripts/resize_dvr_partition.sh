@@ -21,6 +21,6 @@ EOF
 
 sleep 0.2
 
-sudo resize2fs ${partition}
+sudo fatresize ${partition}
 
 exit
