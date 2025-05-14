@@ -1,0 +1,10 @@
+gsmenu:
+  enabled: true
+  gpio:
+    # Custom
+    left:
+    right:
+    up:
+    down:
+    center:
+    rec:
