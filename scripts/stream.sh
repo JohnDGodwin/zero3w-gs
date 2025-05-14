@@ -15,9 +15,30 @@ else
     exit 1
 fi
 
+#Assign GPIO layout
+case "$GPIO_LAYOUT" in
+    Ruby|ruby)
+        sudo cp /config/scripts/gpio/Ruby.yaml /etc/pixelpilot.yaml
+        ;;
+    Runcam|runcam)
+        sudo cp /config/scripts/gpio/Runcam.yaml /etc/pixelpilot.yaml
+        ;;
+    Emax|emax)
+        sudo cp /config/scripts/gpio/Emax.yaml /etc/pixelpilot.yaml
+        ;;
+    Custom|custom)
+        sudo cp /config/scripts/gpio/Custom.yaml /etc/pixelpilot.yaml
+        ;;
+    *)
+        echo "Invalid GPIO layout specified in $CONFIG_FILE. Exiting."
+        exit 1
+        ;;
+esac
 
-WFB_FILE="/etc/default/wifibroadcast"
+
 #Ensure WFB-ng is setup and NICs are available
+WFB_FILE="/etc/default/wifibroadcast"
+
 if [[ -f "$WFB_FILE" ]]; then
     NIC_NAMES=$(grep -oP '^WFB_NICS="\K[^"]+' "$WFB_FILE")
     if [[ -n "$NIC_NAMES" ]]; then
@@ -35,9 +56,8 @@ sudo systemctl is-active --quiet wifibroadcast || sudo systemctl restart wifibro
 sudo systemctl is-active --quiet wifibroadcast@gs || sudo systemctl restart wifibroadcast@gs
 
 
-
 #Start PixelPilot
-pixelpilot --osd --osd-elements 0 --osd-custom-message --osd-refresh 100 --osd-config /config/scripts/osd.json --screen-mode $SCREEN_MODE --dvr-framerate $REC_FPS --dvr-fmp4 --dvr-sequenced-files --dvr-template $DVR_PATH/record_%Y-%m-%d_%H-%M-%S.mp4 &
+pixelpilot --osd --osd-custom-message --osd-config /config/scripts/osd.json --screen-mode $SCREEN_MODE --dvr-framerate $REC_FPS --dvr-fmp4 --dvr-sequenced-files --dvr-template $DVR_PATH/record_%Y-%m-%d_%H-%M-%S.mp4 &
 PID=$!
 
 #Start MSPOSD on gs-side
@@ -45,6 +65,7 @@ if [[ "$OSD" == "ground" ]]; then
     msposd_rockchip --osd --ahi 0 --matrix 11 -v -r 5 --master 0.0.0.0:14551 &
 fi
 
+# Keep the script running
 while true; do
     sleep 1
 done
