@@ -3,7 +3,7 @@
 DVR_PATH=/dvr
 PID=0
 
-CONFIG_FILE="/config/config"
+CONFIG_FILE="/config/setup.txt"
 
 if [[ -f "$CONFIG_FILE" ]]; then
     SCREEN_MODE=$(awk '/\[screen mode\]/{f=1} f==1 && /mode =/{print $3; exit}' "$CONFIG_FILE")
