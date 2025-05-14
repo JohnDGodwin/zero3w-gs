@@ -4,7 +4,7 @@ gsmenu:
     # Ruby
     left: 13
     right: 11
-    center: 11
     up: 16
     down: 18
+    center: 11
     rec: 32
