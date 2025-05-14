@@ -1,11 +1,13 @@
 #!/bin/bash
 
 DVR_PATH=/dvr
-#SCREEN_MODE=$(grep "^mode = " /config/scripts/screen-mode | cut -d'=' -f2 | tr -d ' ')
-#REC_FPS=$(grep "^fps = " /config/scripts/rec-fps | cut -d'=' -f2 | tr -d ' ')
-#OSD=$(grep "^render = " /config/scripts/osd | cut -d'=' -f2 | tr -d ' ')
 PID=0
 
+CONFIG_FILE="/config/scripts/config"
+
+SCREEN_MODE=
+REC_FPS=
+OSD=
 
 WFB_FILE="/etc/default/wifibroadcast"
 #Ensure WFB-ng is setup and NICs are available
