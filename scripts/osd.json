@@ -98,12 +98,65 @@
                 {"range": [-79, -70],"icon_path": "signal4.png"},
                 {"range": [-130, -80],"icon_path": "signal5.png"}
             ]
+        },
+        {
+            "name": "Metrics background",
+            "type": "BoxWidget",
+            "x": -270,
+            "y": 100,
+            "width": 270,
+            "height": 100,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "alpha": 0.4
+            },
+            "facts": []
+        },        
+        {
+            "name": "Video FPS and resolution",
+            "type": "VideoWidget",
+            "x": -250,
+            "y": 126,
+            "icon_path": "framerate.png",
+            "template": "%u fps | %ux%u",
+            "per_second_window_s": 2,
+            "per_second_bucket_ms": 200,
+            "facts": [
+                {
+                    "__comment": "Will be converted to per-second",
+                    "name": "video.displayed_frame"
+                },
+                {
+                    "name": "video.width"
+                },
+                {
+                    "name": "video.height"
+                }
+            ]
+        },        
+        {
+            "name": "Video link throughput",
+            "type": "VideoBitrateWidget",
+            "x": -250,
+            "y": 156,
+            "icon_path": "network.png",
+            "template": "%f Mbps",
+            "per_second_window_s": 2,
+            "per_second_bucket_ms": 100,
+            "facts": [
+                {
+                    "__comment": "Should be sum per-second, scaled to Megs",
+                    "name": "gstreamer.received_bytes"
+                }
+            ]
         },        
         {
             "name": "DVR status",
             "type": "DvrStatusWidget",
             "x": -250,
-            "y": 126,
+            "y": 186,
             "icon_path": "sdcard-white.png",
             "text": "Recording",
             "facts": [
