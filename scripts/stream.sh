@@ -8,6 +8,7 @@ CONFIG_FILE="/config/scripts/config"
 SCREEN_MODE=
 REC_FPS=
 OSD=
+GPIO_LAYOUT=
 
 WFB_FILE="/etc/default/wifibroadcast"
 #Ensure WFB-ng is setup and NICs are available
