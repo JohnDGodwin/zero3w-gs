@@ -1,0 +1,8 @@
+[Unit]
+Description=First-boot / DVR Partition Resize script launcher
+
+[Service]
+ExecStart=/config/scripts/firstboot.sh
+
+[Install]
+WantedBy=multi-user.target
