@@ -1,11 +1,11 @@
 [screen mode]
-mode = 1920x1080@60
+screen_mode = 1920x1080@60
 
 [dvr recording]
-fps = 60
+rec_fps = 60
 
 [gpio]
 layout = Ruby
 
 [msposd]
-render = air
+osd = air
