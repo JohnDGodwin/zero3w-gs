@@ -1,6 +1,5 @@
 [Unit]
 Description="OpenIPC Server"
-After=multi-user.target
 StartLimitIntervalSec=10
 StartLimitBurst=0
 
