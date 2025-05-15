@@ -25,16 +25,16 @@ sudo mkfs.vfat -F 32 ${partition}
 echo "UUID=$(blkid -s UUID -o value ${partition})  /dvr  vfat  defaults,umask=000  0  0" | sudo tee -a /etc/fstab
 mount ${partition}
 
-sleep 0.1
+sleep 0.2
 
 sudo smbpasswd -a radxa <<EOF
 radxa
 radxa
 EOF
 
-sudo systemctl restart smbd
+sudo systemctl restart smbd &
 
-sleep 0.1
+sleep 0.2
 
 
 sudo rm /etc/systemd/system/firstboot.service
