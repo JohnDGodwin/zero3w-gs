@@ -1,6 +1,5 @@
 [Unit]
-Description="OpenIPC Server"
-After=multi-user.target
+Description="DVR Server"
 StartLimitIntervalSec=10
 StartLimitBurst=0
 
