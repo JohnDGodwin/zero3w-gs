@@ -100,6 +100,18 @@
             ]
         },
         {
+            "type": "IconSelectorWidget",
+            "name": "No signal icon",
+            "x": -270,
+            "y": 0,
+            "facts": [
+                {"name": "wfbcli.rx.packets.all.total","tags": {"id": "video rx"}}
+            ],
+            "ranges_and_icons": [
+                {"range": [-1, 1], "icon_path": "signal5.png"}
+            ]
+        },
+        {
             "name": "Metrics background",
             "type": "BoxWidget",
             "x": -270,
