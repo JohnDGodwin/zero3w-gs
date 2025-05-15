@@ -10,6 +10,6 @@ rec_fps = 60
 [gpio]
 gpio_layout = Ruby
 
-# Setting osd to "ground" enables the vrx-side msposd_rockchip process
+# Setting osd to "ground" enables the vrx-side msposd_rockchip process.
 [msposd]
 osd = air
