@@ -26,6 +26,9 @@ case "$GPIO_LAYOUT" in
     Emax|emax)
         sudo cp /config/scripts/gpio/Emax.yaml /etc/pixelpilot.yaml
         ;;
+    Bonnet|bonnet)
+        sudo cp /config/scripts/gpio/Bonnet.yaml /etc/pixelpilot.yaml
+        ;;
     Custom|custom)
         sudo cp /config/scripts/gpio/Custom.yaml /etc/pixelpilot.yaml
         ;;
