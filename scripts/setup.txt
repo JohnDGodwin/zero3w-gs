@@ -6,7 +6,7 @@ screen_mode = 1920x1080@60
 [dvr recording]
 rec_fps = 60
 
-# Set the gpio_layout. Accepted values are Ruby, Runcam, and Custom.
+# Set the gpio_layout. Accepted values are Ruby, Bonnet, Runcam, and Custom.
 [gpio]
 gpio_layout = Ruby
 
