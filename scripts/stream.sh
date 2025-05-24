@@ -9,7 +9,7 @@ if [[ -f "$CONFIG_FILE" ]]; then
     SCREEN_MODE=$(awk '/\[screen mode\]/{f=1} f==1 && /mode =/{print $3; exit}' "$CONFIG_FILE")
     REC_FPS=$(awk '/\[dvr recording\]/{f=1} f==1 && /fps =/{print $3; exit}' "$CONFIG_FILE")
     GPIO_LAYOUT=$(awk '/\[gpio\]/{f=1} f==1 && /gpio_layout =/{print $3; exit}' "$CONFIG_FILE")
-    OSD=$(awk '/\[msposd\]/{f=1} f==1 && /render =/{print $3; exit}' "$CONFIG_FILE")
+    OSD=$(awk '/\[msposd\]/{f=1} f==1 && /osd =/{print $3; exit}' "$CONFIG_FILE")
 else
     echo "File $CONFIG_FILE not found. Exiting."
     exit 1
