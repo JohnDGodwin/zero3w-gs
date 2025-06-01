@@ -1,0 +1,9 @@
+[Unit]
+Description=dvrUI webserver
+After=network.target
+
+[Service]
+ExecStart=python3 /etc/dvrUI/app.py
+
+[Install]
+WantedBy=multi-user.target
