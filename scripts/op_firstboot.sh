@@ -20,9 +20,8 @@ EOF
 
 sleep 0.1
 
-sudo mkfs.vfat -F 32 ${partition3}
+
 sudo mkfs.vfat -F 32 ${partition4}
-sudo fatlabel ${partition3} config
 sudo fatlabel ${partition4} dvr
 echo "UUID=$(blkid -s UUID -o value ${partition3})  /config  vfat  defaults,umask=000  0  0" | sudo tee -a /etc/fstab
 echo "UUID=$(blkid -s UUID -o value ${partition4})  /dvr  vfat  defaults,umask=000  0  0" | sudo tee -a /etc/fstab
